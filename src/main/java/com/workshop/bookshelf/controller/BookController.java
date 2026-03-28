@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.workshop.bookshelf.model.Book;
 import com.workshop.bookshelf.service.BookService;
@@ -56,4 +58,28 @@ public class BookController {
                                 return "error/404"; // resolves to templates/error/404.html
                             });
     }
+
+    //Step 4a: Show the Add Book form
+    @GetMapping("/books/add")
+    public String showAddBookForm(Model model){
+        
+        // Add an empty Book to the Model so Thymeleaf can bind
+        // form fields to it using th:object
+
+        model.addAttribute("book", new Book());
+        return "add-book";
+    }
+
+    //Step 4b: Handle the Form submit in Add Book Form
+    @PostMapping("/books/add")
+    public String saveBook(@ModelAttribute Book book){
+        // Persist to the in-memory list
+        bookService.save(book);
+
+        // Redirect so the user sees the updated list
+        return "redirect:/books";
+    }
+
+    
+
 }
