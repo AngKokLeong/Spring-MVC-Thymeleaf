@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>BookShelf - Add Book</title>
+    </head>
+
+    <body>
+        <h1>Add a New Book</h1>
+
+
+        <a th:href="@{/books}">Cancel</a>
+
+        <!--
+            th:action - the URL where the form send the POST request
+            th:object - binds the form to the "book" object in the Model
+            method=POST - define HTTP POST
+        -->
+
+        <form   
+            th:action="@{/books/add}"
+            th:object="${book}"
+            method="post"
+        >
+            <div>
+                <label for="title">
+                    Title:
+                </label>
+
+                <!--
+                    th:field="*{title}" is shorthand for:
+                        id="title" name="title" th:value="${book.title}"
+
+                        The *{} syntax uses the th:object as the root.
+                -->
+                <input type="text" th:field="*{title}" required>
+            </div>
+
+            <div>
+                <label for="author">Author:</label>
+                <input type="text" th:field="*{author}" required>
+            </div>
+
+
+            <div>
+                <label for="year">Year:</label>
+                <input type="number" th:field="*{year}" min="1000" max="2099" required>
+            </div>
+
+
+            <div>
+                <label for="genre">Genre:</label>
+                <select th:field="*{genre}">
+                    <option value="">--Choose genre--</option>
+                    <option value="Fiction">Fiction</option>
+                    <option value="Non-Fiction">Non-Fiction</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Science">Science</option>
+                </select>
+            </div>
+
+            <br />
+
+            <button type="submit">Save Book</button>
+
+
+        </form>
+
+    </body>
+
+
+</html>
