@@ -41,19 +41,28 @@
                         th:errors="*{title}"
                         style="color:red; font-size:0.85em;"
                  >
-
                  </span>
             </div>
-
+                
             <div>
                 <label for="author">Author:</label>
                 <input type="text" th:field="*{author}" required>
+                <span th:if="${#fields.hasErrors('author')}"
+                        th:errors="*{author}"
+                        style="color:red; font-size:0.85em;"
+                 >
+                 </span>
             </div>
 
-
+            <!-- https://www.baeldung.com/spring-thymeleaf-error-messages -->
             <div>
                 <label for="year">Year:</label>
                 <input  type="number" th:field="*{year}" min="1000" max="2099" required />
+                <span th:if="${#fields.hasErrors('year')}"
+                        th:errors="*{year}"
+                        style="color:red; font-size:0.85em;"
+                 >
+                 </span>
             </div>
 
 
