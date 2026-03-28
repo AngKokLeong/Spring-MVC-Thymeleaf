@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="UTF-8">
+        <title th:text="'BookShelf - ' + ${book.title}">Book Detail</title>
+    </head>
+
+    <body>
+
+        <a th:href="@{/books}">All Books</a>
+
+        <!-- th:text replaces the element's text content -->
+        <h1 th:text="${book.title}">Book Title</h1>
+
+        <dl>
+            <dt>Author</dt>
+            <dd th:text="${book.author}">Author Name</dd>
+
+            <dt>Published Year</dt>
+            <dd th:text="${book.year}">2024</dd>
+
+            <dt>Genre</dt>
+            <dd th:text="${book.genre}">Genre</dd>
+
+            <dt>Book ID</dt>
+            <dd th:text="${book.id}">0</dd>
+
+        </dl>
+
+        <a th:href="@{
+                        books/{id} 
+                        (id=${book.id})
+                    }">
+            Add Another Book
+        </a>
+
+    </body>
+</html>
