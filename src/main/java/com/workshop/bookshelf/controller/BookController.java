@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import com.workshop.bookshelf.model.Book;
 import com.workshop.bookshelf.service.BookService;
 
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 
 @Controller
 public class BookController {
@@ -22,6 +24,8 @@ public class BookController {
     public BookController(BookService bookService){
         this.bookService = bookService;
     }
+
+
 
     //Step 1: Home Page
     @GetMapping("/")
@@ -73,7 +77,13 @@ public class BookController {
 
     //Step 4b: Handle the Form submit in Add Book Form
     @PostMapping("/books/add")
-    public String saveBook(@ModelAttribute Book book, RedirectAttributes redirectAttrs){
+    public String saveBook(@Valid @ModelAttribute Book book, BindingResult result, RedirectAttributes redirectAttrs){
+        
+        //https://www.baeldung.com/spring-mvc-custom-validator
+        if(result.hasErrors()){
+            return "add-book";
+        }
+        
         // Persist to the in-memory list
         bookService.save(book);
 

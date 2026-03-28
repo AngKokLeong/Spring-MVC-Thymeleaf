@@ -1,11 +1,28 @@
 package com.workshop.bookshelf.model;
 
+
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+
 public class Book {
     
     private Long id;
+
+    @NotBlank(message="Title should not be blank")
+    @Size(max=150 , message="Title length should not exceed 150 characters")
     private String title;
+
+    @NotBlank(message="Author should not be blank")
     private String author;
+
+    @Min(value=1000, message="Year should not be lower than 1000")
+    @Max(value=2026, message="Year should not exceed current year")
     private int year;
+
+    @NotBlank(message="Genre should not be blank")
     private String genre;
 
     public Book(){}
