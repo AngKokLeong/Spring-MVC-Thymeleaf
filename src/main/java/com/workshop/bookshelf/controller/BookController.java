@@ -5,7 +5,10 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.workshop.bookshelf.model.Book;
 import com.workshop.bookshelf.service.BookService;
@@ -56,4 +59,33 @@ public class BookController {
                                 return "error/404"; // resolves to templates/error/404.html
                             });
     }
+
+    //Step 4a: Show the Add Book form
+    @GetMapping("/books/add")
+    public String showAddBookForm(Model model){
+        
+        // Add an empty Book to the Model so Thymeleaf can bind
+        // form fields to it using th:object
+
+        model.addAttribute("book", new Book());
+        return "add-book";
+    }
+
+    //Step 4b: Handle the Form submit in Add Book Form
+    @PostMapping("/books/add")
+    public String saveBook(@ModelAttribute Book book, RedirectAttributes redirectAttrs){
+        // Persist to the in-memory list
+        bookService.save(book);
+
+
+        // Attach a success message so that when this method send the redirect back to the client 
+        // the client is able to retrieve this success message
+        redirectAttrs.addFlashAttribute("successMessage", "Book '" + book.getTitle() + "' added successfully!");
+
+        // Redirect so the user sees the updated list
+        return "redirect:/books";
+    }
+
+
+
 }

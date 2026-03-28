@@ -9,6 +9,15 @@
     </head>
 
     <body>
+
+        <!-- This success message will be shown when the flash attribute exists-->
+        <div 
+            th:if="${successMessage}"
+            th:text="${successMessage}"    
+            style="background:#d4edda; color:#155724; padding: 10px; border-radius:4px;"
+        >
+        </div>
+
         <h1>All Books</h1>
 
         <a th:href="@{/}">Back to Home</a>
