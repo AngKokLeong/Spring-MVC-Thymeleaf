@@ -35,6 +35,14 @@
                         The *{} syntax uses the th:object as the root.
                 -->
                 <input type="text" th:field="*{title}" required>
+                <!-- th:errors renders the constraint message when validation fails -->
+                <!-- th:if hides the span entirely when there are no errors -->
+                 <span th:if="${#fields.hasErrors('title')}"
+                        th:errors="*{title}"
+                        style="color:red; font-size:0.85em;"
+                 >
+
+                 </span>
             </div>
 
             <div>
@@ -45,7 +53,7 @@
 
             <div>
                 <label for="year">Year:</label>
-                <input type="number" th:field="*{year}" min="1000" max="2099" required>
+                <input  type="number" th:field="*{year}" min="1000" max="2099" required />
             </div>
 
 
