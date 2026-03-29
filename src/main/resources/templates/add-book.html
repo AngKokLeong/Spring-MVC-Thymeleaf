@@ -23,6 +23,15 @@
             th:object="${book}"
             method="post"
         >
+            <div th:if="${#fields.hasAnyErrors()}">
+                <span>There are errors in the following:</span>
+                <!--https://www.thymeleaf.org/doc/tutorials/3.1/usingthymeleaf.html#iteration-basics -->
+                <ul>
+                   <li th:each="error : ${#fields.allErrors()}" th:text="${error}" ></li> 
+                </ul>
+
+            </div>
+
             <div>
                 <label for="title">
                     Title:
