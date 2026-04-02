@@ -29,12 +29,6 @@ public class BookController {
     }
 
 
-    @InitBinder
-    public void initBinder(WebDataBinder binder){
-        
-        binder.setValidator(new BookValidator());
-    }
-
     //Step 1: Home Page
     @GetMapping("/")
     public String home(){

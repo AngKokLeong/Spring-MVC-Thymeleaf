@@ -18,12 +18,13 @@ public class Book {
     private String title;
 
     @NotBlank(message="Author should not be blank")
+    @Size(max=150 , message="Book length should not exceed 150 characters")
     private String author;
 
     @Min(value=1000, message="Year should not be lower than 1000")
-    @ValidCurrentYear
+    @ValidCurrentYear(message="Year must be less than or equal to %s")
     private int year;
-
+    
     @NotBlank(message="Genre should not be blank")
     private String genre;
 
