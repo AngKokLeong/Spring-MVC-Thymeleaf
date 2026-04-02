@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.workshop.bookshelf.model.Book;
 import com.workshop.bookshelf.service.BookService;
+import com.workshop.bookshelf.utilities.validator.BookValidator;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -26,6 +29,11 @@ public class BookController {
     }
 
 
+    @InitBinder
+    public void initBinder(WebDataBinder binder){
+        
+        binder.setValidator(new BookValidator());
+    }
 
     //Step 1: Home Page
     @GetMapping("/")
@@ -74,7 +82,7 @@ public class BookController {
         model.addAttribute("book", new Book());
         return "add-book";
     }
-
+    
     //Step 4b: Handle the Form submit in Add Book Form
     @PostMapping("/books/add")
     public String saveBook(@Valid @ModelAttribute Book book, BindingResult result, RedirectAttributes redirectAttrs){

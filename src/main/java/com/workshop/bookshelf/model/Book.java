@@ -1,6 +1,8 @@
 package com.workshop.bookshelf.model;
 
 
+import com.workshop.bookshelf.utilities.validator_interface.ValidCurrentYear;
+
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -19,7 +21,7 @@ public class Book {
     private String author;
 
     @Min(value=1000, message="Year should not be lower than 1000")
-    @Max(value=2026, message="Year should not exceed current year")
+    @ValidCurrentYear
     private int year;
 
     @NotBlank(message="Genre should not be blank")
