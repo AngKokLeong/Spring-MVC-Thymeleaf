@@ -17,7 +17,7 @@ import jakarta.validation.Payload;
 @Constraint(validatedBy = ValidCurrentYearValidator.class)
 public @interface ValidCurrentYear{
 
-    String message() default "year must be less than or equal to %s";
+    String message() default "Year must be less than or equal to %s";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 

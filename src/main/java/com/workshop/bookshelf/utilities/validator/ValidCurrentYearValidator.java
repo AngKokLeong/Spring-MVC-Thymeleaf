@@ -8,11 +8,12 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 
+
 public class ValidCurrentYearValidator implements ConstraintValidator<ValidCurrentYear, Integer> {
     
     
     private Integer currentYear;
-
+    private LocalDateTime currentDateTime = LocalDateTime.now();
 
     @Override
     public void initialize(ValidCurrentYear validCurrentYear){}
@@ -20,7 +21,6 @@ public class ValidCurrentYearValidator implements ConstraintValidator<ValidCurre
 
     @Override
     public boolean isValid(Integer value, ConstraintValidatorContext context) {
-        LocalDateTime currentDateTime = LocalDateTime.now();
 
         if(value == null)
             return true;
@@ -34,7 +34,7 @@ public class ValidCurrentYearValidator implements ConstraintValidator<ValidCurre
 
     private void formatMessage(ConstraintValidatorContext context){
         String message = context.getDefaultConstraintMessageTemplate();
-        String formattedMessage = String.format(message, this.currentYear);
+        String formattedMessage = String.format(message, currentDateTime.getYear());
 
         context.disableDefaultConstraintViolation();
         context.buildConstraintViolationWithTemplate(formattedMessage).addConstraintViolation();
